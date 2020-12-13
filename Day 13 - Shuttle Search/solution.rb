@@ -10,7 +10,7 @@ input = IO.read(file_path)
 
 ## Answer 1
 
-# Pase input
+# Parse input
 input_lines = input.split(/\n+/)
 
 earliest_timestamp = input_lines[0].to_i
