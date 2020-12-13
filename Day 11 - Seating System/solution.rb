@@ -36,7 +36,7 @@ end
 loop do
   #pp seats #DEBUG
   seating_changes = []
-  
+
   # Find all seats that should be modified
   (0).upto(seats.count-1).each do |i|
     (0).upto(seats[i].count-1).each do |j|
@@ -54,7 +54,7 @@ loop do
       when "#" then seats[i][j] = "L"
     end
   end
-  
+
   break if seating_changes.empty?
 end
 
