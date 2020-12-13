@@ -17,6 +17,7 @@ bus_ids = input_lines[1].split(",").select{|id| id =~ /^[0-9]+$/ }.collect{|id| 
 
 
 ## Answer 1
+bus_id, wait_time = bus_ids.collect{|bus_id| [bus_id, bus_id - (earliest_timestamp % bus_id)] }.min{|(_,wait_time1), (_,wait_time2)| wait_time1 <=> wait_time2 }
 
 # Print
 answer = nil
