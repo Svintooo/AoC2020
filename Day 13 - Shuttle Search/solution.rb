@@ -8,15 +8,16 @@ input = IO.read(file_path)
 
 
 
-## Parse input
+## Answer 1
+
+# Pase input
 input_lines = input.split(/\n+/)
 
 earliest_timestamp = input_lines[0].to_i
 
 bus_ids = input_lines[1].split(",").select{|id| id =~ /^[0-9]+$/ }.collect{|id| id.to_i }
 
-
-## Answer 1
+# Find earliest bus, and shortest wait time
 bus_id, wait_time = bus_ids.collect{|bus_id| [bus_id, bus_id - (earliest_timestamp % bus_id)] }.min{|(_,wait_time1), (_,wait_time2)| wait_time1 <=> wait_time2 }
 
 # Print
