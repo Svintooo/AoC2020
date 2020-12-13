@@ -35,24 +35,27 @@ end
 
 ## Answer 1
 loop do
-  seatings_has_changed = false
+pp seats ;nil
+  seating_changes = []
   
   (0).upto(seats.count-1).each do |i|
     (0).upto(seats[i].count-1).each do |j|
-      seat_before_change = seats[i][j]
-
       case seats[i][j]
-        when "L" then seats[i][j] = "#" if seats.adjacent(i,j).count("#") == 0
-        when "#" then seats[i][j] = "L" if seats.adjacent(i,j).count("#") > 4
+        when "L" then seating_changes << [i,j] if seats.adjacent(i,j).count("#") == 0
+        when "#" then seating_changes << [i,j] if seats.adjacent(i,j).count("#") > 4
       end
+    end
+  end
 
-      seatings_has_changed |= (seats[i][j] != seat_before_change)
+  seating_changes.each do |i,j|
+    case seats[i][j]
+      when "L" then seats[i][j] = "#"
+      when "#" then seats[i][j] = "L"
     end
   end
   
-  break if not seatings_has_changed
+  break if seating_changes.empty?
 end
-
 
 
 ## Answer 2
