@@ -53,7 +53,7 @@ end
 Boat::Position = Struct.new(:x, :y)
 
 # create a boat
-boat = Boat.new(position: Boat::Position.new(x: 0, y: 0), direction: 'E')
+boat = Boat.new(Boat::Position.new(x: 0, y: 0), :E)
 
 # Move the boat according to the navigation instructions
 navigation_instructions.each do |action, value|
