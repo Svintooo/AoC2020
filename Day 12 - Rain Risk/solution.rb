@@ -16,7 +16,7 @@ end
 
 
 ## Parse input
-data = input.split(/\n+/)}
+data = input.split(/\n+/)
 
 
 
