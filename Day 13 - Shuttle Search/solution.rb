@@ -9,8 +9,11 @@ input = IO.read(file_path)
 
 
 ## Parse input
-data = input
+input_lines = input.split(/\n+/)
 
+earliest_timestamp = input_lines[0].to_i
+
+bus_ids = input_lines[1].split(",").select{|id| id =~ /^[0-9]+$/ }.collect{|id| id.to_i }
 
 
 ## Answer 1
