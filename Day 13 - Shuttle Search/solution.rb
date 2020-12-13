@@ -26,6 +26,10 @@ puts "[Answer 1] ID of earliest bus multiplied by wait time: #{ answer }"
 
 ## Answer 2
 
+# Parse input
+input_lines = input.split(/\n+/)
+time_table = input_lines[1].split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i : 0 }
+
 # Print
 answer = nil
 puts "[Answer 2] asdf: #{ answer }"
