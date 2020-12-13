@@ -64,3 +64,7 @@ puts "[Answer 1] Numbers of seats the ends up occupied: #{ answer }"
 
 
 ## Answer 2
+
+# Print
+answer = nil
+puts "[Answer 2] asdf: #{ answer }"
