@@ -79,7 +79,7 @@ end
 
 
 # Print
-answer = boat.position.x + boat.position.y
+answer = boat.position.x.abs + boat.position.y.abs
 puts "[Answer 1] Manhattan distance: #{ answer }"
 
 
