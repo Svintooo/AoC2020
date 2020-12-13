@@ -35,14 +35,14 @@ end
 
 ## Answer 1
 loop do
-pp seats ;nil
+  pp seats ;nil #DEBUG
   seating_changes = []
   
   (0).upto(seats.count-1).each do |i|
     (0).upto(seats[i].count-1).each do |j|
       case seats[i][j]
         when "L" then seating_changes << [i,j] if seats.adjacent(i,j).count("#") == 0
-        when "#" then seating_changes << [i,j] if seats.adjacent(i,j).count("#") > 4
+        when "#" then seating_changes << [i,j] if seats.adjacent(i,j).count("#") >= 4
       end
     end
   end
