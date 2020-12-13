@@ -40,11 +40,11 @@ Boat = Struct.new(:position, :direction) do
 
   def move_forward(distance)
     case self.direction
-      when 'N' then self.position.y += 1
-      when 'S' then self.position.y -= 1
-      when 'E' then self.position.x += 1
-      when 'W' then self.position.x -= 1
-      else raise "Invalid distance: #{distance.inspect}"
+      when :N then self.position.y += 1
+      when :S then self.position.y -= 1
+      when :E then self.position.x += 1
+      when :W then self.position.x -= 1
+      else raise "Invalid direction: #{self.direction}"
     end
   end
 end
