@@ -8,10 +8,10 @@ input = IO.read(file_path)
 
 
 
-## Parse input
-#seats = input.split(/\n+/).collect{|str| str.chars.collect(&:to_sym) }
+## Answer 1
+
+# Parse input
 seats = input.split(/\n+/).collect{|str| str.chars }
-#seats = input.split(/\n+/)
 
 def seats.adjacent(i, j)
   adjacent_seats_status = []
@@ -31,13 +31,12 @@ def seats.adjacent(i, j)
   return adjacent_seats_status
 end
 
-
-
-## Answer 1
+# Modify seats until no modifications are longer made
 loop do
-  #pp seats ;nil #DEBUG
+  #pp seats #DEBUG
   seating_changes = []
   
+  # Find all seats that should be modified
   (0).upto(seats.count-1).each do |i|
     (0).upto(seats[i].count-1).each do |j|
       case seats[i][j]
@@ -47,6 +46,7 @@ loop do
     end
   end
 
+  # Modify seats
   seating_changes.each do |i,j|
     case seats[i][j]
       when "L" then seats[i][j] = "#"
