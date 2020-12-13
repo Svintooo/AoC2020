@@ -35,7 +35,7 @@ end
 
 ## Answer 1
 loop do
-  pp seats ;nil #DEBUG
+  #pp seats ;nil #DEBUG
   seating_changes = []
   
   (0).upto(seats.count-1).each do |i|
