@@ -13,8 +13,9 @@ input = IO.read(file_path)
 # Parse input
 seats = input.split(/\n+/).collect{|str| str.chars }
 
+# Help method for finding all adjacent seats
 def seats.adjacent(i, j)
-  adjacent_seats_status = []
+  adjacent_seats = []
 
   [
     [-1, -1], [-1,  0], [-1, +1],
@@ -24,11 +25,11 @@ def seats.adjacent(i, j)
     adj_i = i + i_delta
     adj_j = j + j_delta
     next if adj_i < 0 || adj_i >= self.count
-    next if adj_j < 0 || adj_j >= self[i].count
-    adjacent_seats_status << self[adj_i][adj_j]
+    next if adj_j < 0 || adj_j >= self[adj_i].count
+    adjacent_seats << self[adj_i][adj_j]
   end
 
-  return adjacent_seats_status
+  return adjacent_seats
 end
 
 # Modify seats until no modifications are longer made
