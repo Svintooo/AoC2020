@@ -23,7 +23,7 @@ navigation_instructions = input.split(/\n+/).collect{|line| [ line[0].to_sym, li
 ## Answer 1
 
 # Define Boat
-Boat = Struct.new(:position, :direction) do
+Boat = Struct.new(:direction, :position) do
   @@directions = [:N, :E, :S, :W]
 
   def turn_left(turns)
@@ -53,7 +53,7 @@ end
 Boat::Position = Struct.new(:x, :y)
 
 # create a boat
-boat = Boat.new(Boat::Position.new(x: 0, y: 0), :E)
+boat = Boat.new(:E, Boat::Position.new(x: 0, y: 0))
 
 # Move the boat according to the navigation instructions
 navigation_instructions.each do |action, value|
