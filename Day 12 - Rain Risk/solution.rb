@@ -86,6 +86,73 @@ puts "[Answer 1] Manhattan distance: #{ answer }"
 
 ## Answer 2
 
+# Define Boat
+Boat2 = Struct.new(:position, :waypoint_position) do
+  def turn_left(degrees)
+    turns = degrees / 90
+    y = self.waypoint_position.y
+    x = self.waypoint_position.x
+    case (turns % 4)
+      when 0
+        self.waypoint_position.y =  y
+        self.waypoint_position.x =  x
+      when 1
+        self.waypoint_position.y =  x
+        self.waypoint_position.x = -y
+      when 2
+        self.waypoint_position.y = -y
+        self.waypoint_position.x = -x
+      when 3
+        self.waypoint_position.y = -x
+        self.waypoint_position.x =  y
+    end
+  end
+
+  def turn_right(degrees)
+    turns = degrees / 90
+    y = self.waypoint_position.y
+    x = self.waypoint_position.x
+    case (turns % 4)
+      when 0
+        self.waypoint_position.y =  y
+        self.waypoint_position.x =  x
+      when 1
+        self.waypoint_position.y = -x
+        self.waypoint_position.x =  y
+      when 2
+        self.waypoint_position.y = -y
+        self.waypoint_position.x = -x
+      when 3
+        self.waypoint_position.y =  x
+        self.waypoint_position.x = -y
+    end
+  end
+
+  def move_forward(distance)
+      self.position.y += waypoint_position.y * distance
+      self.position.x += waypoint_position.x * distance
+  end
+end
+
+# Define Position
+Boat2::Position = Struct.new(:x, :y)
+
+# create a boat
+boat = Boat2.new(Boat2::Position.new(0, 0), Boat2::Position.new(-10, 1))
+
+# Move the boat according to the navigation instructions
+navigation_instructions.each do |action, value|
+  case action
+    when :N then boat.waypoint_position.y += value
+    when :S then boat.waypoint_position.y -= value
+    when :E then boat.waypoint_position.x += value
+    when :W then boat.waypoint_position.x -= value
+    when :L then boat.turn_left(value)
+    when :R then boat.turn_right(value)
+    when :F then boat.move_forward(value)
+  end
+end
+
 # Print
 answer = nil
 puts "[Answer 2] asdf: #{ answer }"
