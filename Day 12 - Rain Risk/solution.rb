@@ -50,7 +50,7 @@ Boat = Struct.new(:position, :direction) do
 end
 
 # Defint Position
-Boat::Position = Struct(:x, :y)
+Boat::Position = Struct.new(:x, :y)
 
 # create a boat
 boat = Boat.new(position: Boat::Position.new(x: 0, y: 0), direction: 'E')
