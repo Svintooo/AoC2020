@@ -16,15 +16,72 @@ end
 
 
 ## Parse input
-data = input.split(/\n+/).collect{|line| [ line[0], line[1..-1].to_i ] }
+navigation_instructions = input.split(/\n+/).collect{|line| [ line[0].to_sym, line[1..-1].to_i ] }
 
 
 
 ## Answer 1
 
+# Define Boat
+Boat = Struct.new(:position, :direction) do
+  def turn_left(turns)
+    (turns % 4).times do
+      case self.direction
+        when :N then self.direction = :W
+        when :S then self.direction = :E
+        when :E then self.direction = :N
+        when :W then self.direction = :S
+        else raise "Invalid turns: #{turns.inspect}"
+      end
+    end
+  end
+
+  def turn_right(turns)
+    (turns % 4).times do
+      case self.direction
+        when :N then self.direction = :E
+        when :S then self.direction = :W
+        when :E then self.direction = :S
+        when :W then self.direction = :N
+        else raise "Invalid distance: #{distance.inspect}"
+      end
+    end
+  end
+
+  def move_forward(distance)
+    case self.direction
+      when 'N' then self.position.y += 1
+      when 'S' then self.position.y -= 1
+      when 'E' then self.position.x += 1
+      when 'W' then self.position.x -= 1
+      else raise "Invalid distance: #{distance.inspect}"
+    end
+  end
+end
+
+# Defint Position
+Boat::Position = Struct(:x, :y)
+
+# create a boat
+boat = Boat.new(position: Boat::Position.new(x: 0, y: 0), direction: 'E')
+
+# Move the boat according to the navigation instructions
+navigation_instructions.each do |action, value|
+  case action
+    when :N then boat.position.y += value
+    when :S then boat.position.y -= value
+    when :E then boat.position.x += value
+    when :W then boat.position.x -= value
+    when :L then boat.turn_left(value)
+    when :R then boat.turn_right(value)
+    when :F then boat.move_forward(value)
+  end
+end
+
+
 # Print
-answer = nil
-puts "[Answer 1] asdf: #{ answer }"
+answer = boat.position.x + boat.position.y
+puts "[Answer 1] Manhattan distance: #{ answer }"
 
 
 
