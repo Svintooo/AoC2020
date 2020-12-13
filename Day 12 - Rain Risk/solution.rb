@@ -16,7 +16,7 @@ end
 
 
 ## Parse input
-data = input.split(/\n+/)
+data = input.split(/\n+/).collect{|line| [ line[0], line[1..-1].to_i ] }
 
 
 
