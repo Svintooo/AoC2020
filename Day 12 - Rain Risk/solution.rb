@@ -10,7 +10,14 @@ input = IO.read(file_path)
 
 ## Validate input
 input.each_line(chomp: true) do |line|
-  (puts "Invalid input line: #{line.inspect}"; exit) unless line =~ /^[NSEWLRF][0-9]+$/
+  valid = true
+  valid &= line =~ /^[NSEWLRF][0-9]+$/
+  # Left and right turns must be evenly divisible by 90 degrees
+  valid &= line[1..-1].to_i % 90 == 0 if line =~ /^[LR]/
+  unless valid
+    puts "Invalid input line: #{line.inspect}"
+    exit
+  end
 end
 
 
@@ -26,13 +33,15 @@ navigation_instructions = input.split(/\n+/).collect{|line| [ line[0].to_sym, li
 Boat = Struct.new(:direction, :position) do
   self::DIRECTIONS = [:N, :E, :S, :W]
 
-  def turn_left(turns)
+  def turn_left(degrees)
+    turns = degrees / 90
     index = self.class::DIRECTIONS.index(self.direction)
     new_index = (index - turns) % self.class::DIRECTIONS.count
     self.direction = self.class::DIRECTIONS[new_index]
   end
 
-  def turn_right(turns)
+  def turn_right(degrees)
+    turns = degrees / 90
     index = self.class::DIRECTIONS.index(self.direction)
     new_index = (index + turns) % self.class::DIRECTIONS.count
     self.direction = self.class::DIRECTIONS[new_index]
