@@ -24,28 +24,18 @@ navigation_instructions = input.split(/\n+/).collect{|line| [ line[0].to_sym, li
 
 # Define Boat
 Boat = Struct.new(:position, :direction) do
+  @@directions = [:N, :E, :S, :W]
+
   def turn_left(turns)
-    (turns % 4).times do
-      case self.direction
-        when :N then self.direction = :W
-        when :S then self.direction = :E
-        when :E then self.direction = :N
-        when :W then self.direction = :S
-        else raise "Invalid turns: #{turns.inspect}"
-      end
-    end
+    index = @@directions.index(self.direction)
+    new_index = (index - turns) % @@directions.count
+    self.direction = @@directions[new_index]
   end
 
   def turn_right(turns)
-    (turns % 4).times do
-      case self.direction
-        when :N then self.direction = :E
-        when :S then self.direction = :W
-        when :E then self.direction = :S
-        when :W then self.direction = :N
-        else raise "Invalid distance: #{distance.inspect}"
-      end
-    end
+    index = @@directions.index(self.direction)
+    new_index = (index + turns) % @@directions.count
+    self.direction = @@directions[new_index]
   end
 
   def move_forward(distance)
