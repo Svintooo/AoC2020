@@ -57,5 +57,10 @@ loop do
   break if seating_changes.empty?
 end
 
+# Print
+answer = seats.inject(0){|count, seat_row| count += seat_row.count("#") }
+puts "[Answer 1] Numbers of seats the ends up occupied: #{ answer }"
+
+
 
 ## Answer 2
