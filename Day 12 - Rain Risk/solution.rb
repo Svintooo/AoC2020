@@ -8,6 +8,13 @@ input = IO.read(file_path)
 
 
 
+## Validate input
+input.each_line(chomp: true) do |line|
+  (puts "Invalid input line: #{line.inspect}"; exit) unless line =~ /^[NSEWLRF][0-9]+$/
+end
+
+
+
 ## Parse input
 data = input.split(/\n+/)}
 
