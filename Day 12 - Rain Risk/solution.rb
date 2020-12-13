@@ -154,5 +154,5 @@ navigation_instructions.each do |action, value|
 end
 
 # Print
-answer = nil
-puts "[Answer 2] asdf: #{ answer }"
+answer = boat.position.x.abs + boat.position.y.abs
+puts "[Answer 2] Manhattan distance: #{ answer }"
