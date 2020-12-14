@@ -27,8 +27,8 @@ puts "[Answer 1] ID of earliest bus multiplied by wait time: #{ answer }"
 ## Answer 2
 
 # Parse input
-input_lines = input.split(/\n+/)
-bus_ids = input_lines[1].split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i : 0 }
+line1, line2 = input.split(/\n+/)
+bus_ids = line2.split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i : 0 }
 
 #
 work_array = Array.new(bus_ids.count, 0)
