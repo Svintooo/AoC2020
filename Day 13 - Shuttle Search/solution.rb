@@ -28,8 +28,29 @@ puts "[Answer 1] ID of earliest bus multiplied by wait time: #{ answer }"
 
 # Parse input
 input_lines = input.split(/\n+/)
-time_table = input_lines[1].split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i : 0 }
+bus_ids = input_lines[1].split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i : 0 }
+
+#
+work_array = Array.new(bus_ids.count, 0)
+indexes = bus_ids.each_with_index.to_a.select{|bus_id,_| bus_id != 0 }.collect{|_,index| index }
+increment = bus_ids.first
+timestamp = 0 #100000000000000/increment
+indexes.shift
+
+loop do
+  timestamp += increment
+  success = true
+
+  indexes.each do |i|
+    work_array[i] = (work_array[i] + increment) % bus_ids[i]
+    wait_time = (bus_ids[i] - work_array[i])  # Minutes you have to wait for Bus ID `bus_ids[i]` if time is `timestamp`
+    success &= wait_time == i
+  end
+
+  break if success
+  puts timestamp if (timestamp / increment).to_s =~ /^10+$/
+end
 
 # Print
-answer = nil
-puts "[Answer 2] asdf: #{ answer }"
+answer = timestamp
+puts "[Answer 2] Earliest timestamp: #{ answer }"
