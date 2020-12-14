@@ -34,7 +34,7 @@ bus_ids = line2.split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i :
 work_array = Array.new(bus_ids.count, 0)
 indexes = bus_ids.each_with_index.to_a.select{|bus_id,_| bus_id != 0 }.collect{|_,index| index }
 increment = bus_ids.first
-timestamp = 0 #100000000000000/increment
+timestamp = 100000000000000 - (100000000000000 % increment) + increment
 indexes.shift
 
 loop do
