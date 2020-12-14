@@ -28,32 +28,41 @@ puts "[Answer 1] ID of earliest bus multiplied by wait time: #{ answer }"
 
 # Parse input
 line1, line2 = input.split(/\n+/)
-bus_ids = line2.split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i : 0 }
+bus_ids = line2.split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i : nil }
 
 #
-indexes = bus_ids.each_with_index.to_a.select{|bus_id,_| bus_id != 0 }.collect{|_,index| index }
+indexes = bus_ids.each_with_index.to_a.select{|bus_id,_| !bus_id.nil? }.collect{|_,index| index }
 timestamp = 0
-wait_times = Array.new(bus_ids.count, 0)
 
-final_wait_times = Array.new(bus_ids.count, 0)
+wait_times = Array.new(bus_ids.count)
+indexes.each{|i| wait_times[i] = 0 }
+wait_times
+
+final_wait_times = Array.new(bus_ids.count)
 indexes.each{|i| final_wait_times[i] = i }
+final_wait_times
 
 increment = 1
+indexes.delete( bus_ids.index(increment) )
+indexes
+
 loop do
   timestamp += increment
   success = true
 
   indexes.each do |i|
-    modulus = bus_ids[i] - wait_times[i]
+    modulus = (bus_ids[i] - wait_times[i])  % bus_ids[i]
     modulus = (modulus + increment) % bus_ids[i]
-    wait_times[i] = bus_ids[i] - modulus
-    success &= wait_time == i
+    wait_times[i] = (bus_ids[i] - modulus) % bus_ids[i]
+    success &= wait_times[i] == i
   end
 
+  #puts timestamp
+  #p [timestamp, wait_times] #DEBUG
+  #gets
   if success
     break
   end
-  #puts timestamp
 end
 
 # Print
