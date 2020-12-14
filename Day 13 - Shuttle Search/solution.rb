@@ -42,7 +42,7 @@ final_wait_times = Array.new(bus_ids.count)
 indexes.each{|i| final_wait_times[i] = i }
 final_wait_times
 
-increment = 1
+increment = bus_ids[0]
 indexes.delete( bus_ids.index(increment) )
 indexes
 
