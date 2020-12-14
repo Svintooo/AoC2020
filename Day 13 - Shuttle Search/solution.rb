@@ -32,35 +32,34 @@ bus_ids = line2.split(",").collect{|bus_id| bus_id =~ /^[0-9]+$/ ? bus_id.to_i :
 
 #
 indexes = bus_ids.each_with_index.to_a.select{|bus_id,_| !bus_id.nil? }.collect{|_,index| index }
-timestamp = 0
 
-wait_times = Array.new(bus_ids.count)
-indexes.each{|i| wait_times[i] = 0 }
-wait_times
+#increment = 1
+#increment = bus_ids[0]
+increment = bus_ids.compact.max
 
-final_wait_times = Array.new(bus_ids.count)
-indexes.each{|i| final_wait_times[i] = i }
-final_wait_times
+increment_bus_id_index = bus_ids.index(increment)
+#indexes.delete( increment_bus_id_index )  # Performance boost
 
-increment = bus_ids[0]
-indexes.delete( bus_ids.index(increment) )
-indexes
+#timestamp = 0
+timestamp = 100000000000000 - (100000000000000 % increment) + increment
 
 loop do
   timestamp += increment
+  real_timestamp = timestamp - increment_bus_id_index
   success = true
 
+  wait_times = []
   indexes.each do |i|
-    modulus = (bus_ids[i] - wait_times[i])  % bus_ids[i]
-    modulus = (modulus + increment) % bus_ids[i]
-    wait_times[i] = (bus_ids[i] - modulus) % bus_ids[i]
+    wait_times[i] = (bus_ids[i] - (timestamp - increment_bus_id_index)) % bus_ids[i]
     success &= wait_times[i] == i
   end
 
   #puts timestamp
-  #p [timestamp, wait_times] #DEBUG
-  #gets
+  #(p [real_timestamp, wait_times]; exit) if real_timestamp >= 1068781 # 1202161486 #DEBUG
+  #sleep 1
   if success
+    #p [real_timestamp, wait_times]
+    timestamp = real_timestamp
     break
   end
 end
