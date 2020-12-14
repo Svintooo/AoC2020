@@ -48,7 +48,6 @@ loop do
   end
 
   break if success
-  puts timestamp if (timestamp / increment).to_s =~ /^10+$/
 end
 
 # Print
